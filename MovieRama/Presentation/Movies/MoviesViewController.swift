@@ -2,90 +2,85 @@
 //  MoviesViewController.swift
 //  MovieRama
 //
-//  Created by Alex Moumoulidis on 1/12/23.
+//  Created by Alex Moumoulides on 02/12/23.
 //
 
 import UIKit
+import Combine
 
-class MoviesViewController: UITableViewController {
+class MoviesViewController: UIViewController, XibInstantiable {
+
+    private(set) var vm: (any IMoviesViewModel)?
+    private var cancellables: [AnyCancellable] = []
     
+    @IBOutlet weak var moviesTableView: UITableView!
     
+    final class func create(with vm: any IMoviesViewModel) -> MoviesViewController {
+        let view = MoviesViewController()
+        view.vm = vm as! MoviesViewModel
+        return view
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        self.navigationItem.title = "MOVIERAMA!"
+        moviesTableView.register(UINib(nibName: "MovieViewCell", bundle: nil), forCellReuseIdentifier: MovieViewCell.reuseIdentifier)
+//        moviesTableView.register(MovieViewCell.nib, forCellReuseIdentifier: MovieViewCell.reuseIdentifier)
+        setupUI()
+        bind(vm: vm!)
     }
 
-    // MARK: - Table view data source
+    private func setupUI() {
+        navigationItem.title = "MOVIERAMA!!!"
+        
+        moviesTableView.delegate = self
+        moviesTableView.backgroundColor = .white
+        moviesTableView.dataSource = self
+        
+    }
+    
+    private func bind(vm: any IMoviesViewModel) {
+//        vm.moviesList.sink(receiveValue: {[unowned self] list in
+////            tableview.reloadData()
+//            DispatchQueue.main.async {
+//                tableview.reloadData()
+//            }
+//        }).store(in: &cancellables)
+//
+//        vm.send(action: .load)
+    }
+}
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
+extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 1
-    }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return UITableViewCell()
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = UITableViewCell()
+////
+//        cell.backgroundColor = .clear
+//        cell.tintColor = .blue
+//        cell.textLabel?.text = "test"
+//        cell.textLabel?.tintColor = .darkGray
+//        cell.textLabel?.textColor = .purple
+//        cell.textLabel?.highlightedTextColor = .white
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieViewCell.reuseIdentifier, for: indexPath) as! MovieViewCell
+        
+//        print("Movie: \(movies[indexPath.row])")
+        cell.setup(with: Movie.example())
+        
+//        cell.setup(with: movies[indexPath.row])
+//        cell.accessibilityLabel = String(format: NSLocalizedString("Movie with id: %@", comment: ""), "\(vm.moviesListPublish[indexPath.row])")
+        
+        
+        return cell
+    }
 }

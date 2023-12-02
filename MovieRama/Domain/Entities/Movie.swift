@@ -15,17 +15,19 @@ public struct Movie: Equatable {
     public let backdropPath: String?
     public let releaseDate: String?
     public let voteAverage: Double?
+    public let isFavorite: Bool
     
     // MARK: - Initializers
     
     public init(id: Int, title: String, posterPath: String?, backdropPath: String?,
-                releaseDate: String?, voteAverage: Double?) {
+                releaseDate: String?, voteAverage: Double?, isFavorite: Bool = false) {
         self.id = id
         self.title = title
         self.posterPath = posterPath
         self.backdropPath = backdropPath
         self.releaseDate = releaseDate
         self.voteAverage = voteAverage
+        self.isFavorite = isFavorite
     }
     
 }
@@ -46,14 +48,16 @@ extension Movie {
         posterPath: String? = nil,
         backdropPath: String? = nil,
         releaseDate: String? = nil,
-        voteAverage: Double? = nil
+        voteAverage: Double? = nil,
+        isFavorite: Bool? = nil
     ) -> Movie {
         return Movie(id: id ?? self.id,
                      title: title ?? self.title,
                      posterPath: posterPath ?? self.posterPath,
                      backdropPath: backdropPath ?? self.backdropPath,
                      releaseDate: releaseDate ?? self.releaseDate,
-                     voteAverage: voteAverage ?? self.voteAverage
+                     voteAverage: voteAverage ?? self.voteAverage,
+                     isFavorite: isFavorite ?? self.isFavorite
         )
     }
 }

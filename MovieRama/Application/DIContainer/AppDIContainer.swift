@@ -19,19 +19,20 @@ final class AppDIContainer {
     // APIProvider protocol for AFNetwork, Alamofire or any other network package and apply it here.
     lazy var client: RestClient = RestClient(session: URLSession(configuration: URLSessionConfiguration.default))
     
+    lazy var moviesRepo: IMoviesRepository = MoviesRepository(restClient: client)
+    
     // MARK: - Use Cases
+    
+    func makeGetPopularMoviesUseCase() -> IGetPopularMoviesUC {
+        return GetPopularMoviesUC(moviesRepo: moviesRepo)
+    }
     
     // MARK: - Repositories
     
     // MARK: - ViewModels
     
     func makeMoviesViewModel() -> any IMoviesViewModel {
-        return MoviesViewModel()
+        return MoviesViewModel(getPopularMoviesUC: makeGetPopularMoviesUseCase())
     }
     
-    // MARK: - ViewControllers
-    
-    func makeMoviesViewController() -> MoviesViewController {
-        return MoviesViewController()
-    }
 }

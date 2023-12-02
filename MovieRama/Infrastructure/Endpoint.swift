@@ -17,11 +17,11 @@ private let apiKey = Environment.apikey
 /// API Endpoints
 enum TMDBApiEndpoint: Endpoint {
     
-    case popularMovies(String)
-    case searchMovies(String, String)
-    case movieReviews(String, String)
-    case similarMovies(String, String)
-    case movie(String)
+    case popularMovies(Int)
+    case searchMovies(Int, String)
+    case movieReviews(Int, Int)
+    case similarMovies(Int, Int)
+    case movie(Int)
 
     var url: URL {
         switch self {

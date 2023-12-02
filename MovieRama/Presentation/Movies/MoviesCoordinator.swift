@@ -32,7 +32,8 @@ class MoviesCoordinator: Coordinator {
             }
         }
         
-        let vc = AppDIContainer.shared.makeMoviesViewController()
+        let vc = MoviesViewController.create(with: vm)
+        
         navigationController.pushViewController(vc, animated: true)
     }
 }
