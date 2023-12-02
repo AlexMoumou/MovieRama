@@ -33,7 +33,7 @@ class MoviesViewController: UIViewController, XibInstantiable {
     private func setupUI() {
         navigationItem.title = "MOVIERAMA!!!"
         
-        moviesTableView.delegate = self
+//        moviesTableView.delegate = self
         moviesTableView.backgroundColor = .white
         moviesTableView.dataSource = self
         
@@ -51,7 +51,7 @@ class MoviesViewController: UIViewController, XibInstantiable {
     }
 }
 
-extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
+extension MoviesViewController: UITableViewDataSource {
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -63,6 +63,7 @@ extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieViewCell", for: indexPath) as? MovieViewCell else { return UITableViewCell() }
 //        let cell = UITableViewCell()
 ////
 //        cell.backgroundColor = .clear
@@ -72,7 +73,7 @@ extension MoviesViewController: UITableViewDelegate, UITableViewDataSource {
 //        cell.textLabel?.textColor = .purple
 //        cell.textLabel?.highlightedTextColor = .white
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: MovieViewCell.reuseIdentifier, for: indexPath) as! MovieViewCell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: MovieViewCell.reuseIdentifier, for: indexPath) as! MovieViewCell
         
 //        print("Movie: \(movies[indexPath.row])")
         cell.setup(with: Movie.example())
