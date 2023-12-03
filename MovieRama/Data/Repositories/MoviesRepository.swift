@@ -34,13 +34,17 @@ final class MoviesRepository: IMoviesRepository {
         }.eraseToAnyPublisher()
     }
     
-//    func getMovieReviews(id: Int) -> AnyPublisher<Movie, Error> {
-////        Just(Movie.example()).eraseToAnyPublisher()
-//    }
-//    
-//    func getSimilarMovies(id: Int) -> AnyPublisher<[Movie], Error> {
-////        return Just()
-//    }
+    func getMovieReviews(id: Int) -> AnyPublisher<[ReviewDTO], Error> {
+        restClient.get(TMDBApiEndpoint.movieReviews(1, id)).map { (response: MovieReviewsDTO) in
+            response.results
+        }.eraseToAnyPublisher()
+    }
+
+    func getSimilarMovies(id: Int) -> AnyPublisher<[Movie], Error> {
+        restClient.get(TMDBApiEndpoint.similarMovies(1, id)).map { (response: MoviesDTO) in
+            response.items.map { $0.mapToDomain() }
+        }.eraseToAnyPublisher()
+    }
     
 //    func saveToFavorites(movieID: String) -> AnyPublisher<Bool, Error> {
 //        

@@ -31,6 +31,14 @@ final class AppDIContainer {
         return GetMovieUC(moviesRepo: moviesRepo)
     }
     
+    func makeGetSimilarMoviesUseCase() -> IGetSimilarMoviesUC {
+        return GetSimilarMoviesUC(moviesRepo: moviesRepo)
+    }
+    
+    func makeGetMovieReviewsUseCase() -> IGetMovieReviewsUC {
+        return GetMovieReviewsUC(moviesRepo: moviesRepo)
+    }
+    
     // MARK: - Repositories
     
     // MARK: - ViewModels
@@ -40,7 +48,10 @@ final class AppDIContainer {
     }
     
     func makeMovieDetailsViewModel(movieId: Int) -> any IMovieDetailsViewModel {
-        return MovieDetailsViewModel(getMovieUC: makeGetMovieUseCase(), movieId: movieId)
+        return MovieDetailsViewModel(getMovieUC: makeGetMovieUseCase(),
+                                     getMovieReviewsUC: makeGetMovieReviewsUseCase(),
+                                     getSimilarMoviesUC: makeGetSimilarMoviesUseCase(),
+                                     movieId: movieId)
     }
     
     // MARK: - SwiftUIViews

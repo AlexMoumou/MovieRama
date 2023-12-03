@@ -20,6 +20,7 @@ public struct MovieFull: Equatable {
     public let genreNames: [String]
     public let mainCastNames: [String]
     public let director: String
+    public let similarMovies: [Movie]
     
     
     // MARK: - Initializers
@@ -28,7 +29,8 @@ public struct MovieFull: Equatable {
                 releaseDate: String?, voteAverage: Double?, isFavorite: Bool = false,
                 genreNames: [String],
                 mainCastNames: [String],
-                director: String) {
+                director: String,
+                similarMovies: [Movie] = []) {
         self.id = id
         self.title = title
         self.overview = overview
@@ -40,6 +42,7 @@ public struct MovieFull: Equatable {
         self.genreNames = genreNames
         self.mainCastNames = mainCastNames
         self.director = director
+        self.similarMovies = similarMovies
     }
     
 }
@@ -71,7 +74,8 @@ extension MovieFull {
         isFavorite: Bool? = nil,
         genreNames: [String]? = nil,
         mainCastNames: [String]? = nil,
-        director: String? = nil
+        director: String? = nil,
+        similarMovies: [Movie]? = nil
     ) -> MovieFull {
         return MovieFull(id: id ?? self.id,
                      title: title ?? self.title,
@@ -83,7 +87,8 @@ extension MovieFull {
                      isFavorite: isFavorite ?? self.isFavorite,
                      genreNames: genreNames ?? self.genreNames,
                      mainCastNames: mainCastNames ?? self.mainCastNames,
-                     director: director ?? self.director
+                     director: director ?? self.director,
+                     similarMovies: similarMovies ?? self.similarMovies
         )
     }
 }

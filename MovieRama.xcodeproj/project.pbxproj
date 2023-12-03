@@ -24,6 +24,9 @@
 		5BD524072B1CDA0400C945F5 /* GetMovieUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD524062B1CDA0400C945F5 /* GetMovieUC.swift */; };
 		5BD524092B1CDC9200C945F5 /* MovieFullDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD524082B1CDC9200C945F5 /* MovieFullDTO.swift */; };
 		5BD5240B2B1CDF6000C945F5 /* MovieFull.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5240A2B1CDF6000C945F5 /* MovieFull.swift */; };
+		5BD5240D2B1CF8F500C945F5 /* GetSimilarMoviesUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5240C2B1CF8F500C945F5 /* GetSimilarMoviesUC.swift */; };
+		5BD5240F2B1CF97600C945F5 /* GetMovieReviewsUC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5240E2B1CF97600C945F5 /* GetMovieReviewsUC.swift */; };
+		5BD524112B1CF9C000C945F5 /* MovieReviewsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD524102B1CF9C000C945F5 /* MovieReviewsDTO.swift */; };
 		87FB6F85214AEBD1740B9246 /* Pods_MovieRama_MovieRamaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 431D97A9BEFB011BE71DD6CA /* Pods_MovieRama_MovieRamaUITests.framework */; };
 		A9A5F05604747E55EAD7EFC5 /* Pods_MovieRama.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22AC91C5FF2981B92A373389 /* Pods_MovieRama.framework */; };
 		CCE7FC6DB07B4A54A5567E46 /* Pods_MovieRamaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 729D6FF567F7851A396590B5 /* Pods_MovieRamaTests.framework */; };
@@ -89,6 +92,9 @@
 		5BD524062B1CDA0400C945F5 /* GetMovieUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieUC.swift; sourceTree = "<group>"; };
 		5BD524082B1CDC9200C945F5 /* MovieFullDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFullDTO.swift; sourceTree = "<group>"; };
 		5BD5240A2B1CDF6000C945F5 /* MovieFull.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFull.swift; sourceTree = "<group>"; };
+		5BD5240C2B1CF8F500C945F5 /* GetSimilarMoviesUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSimilarMoviesUC.swift; sourceTree = "<group>"; };
+		5BD5240E2B1CF97600C945F5 /* GetMovieReviewsUC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetMovieReviewsUC.swift; sourceTree = "<group>"; };
+		5BD524102B1CF9C000C945F5 /* MovieReviewsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieReviewsDTO.swift; sourceTree = "<group>"; };
 		729D6FF567F7851A396590B5 /* Pods_MovieRamaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MovieRamaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B306DB2865B2C1624E54B2 /* Pods-MovieRamaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieRamaTests.release.xcconfig"; path = "Target Support Files/Pods-MovieRamaTests/Pods-MovieRamaTests.release.xcconfig"; sourceTree = "<group>"; };
 		95D20C00FFFB18EA6D1028B0 /* Pods-MovieRama.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MovieRama.release.xcconfig"; path = "Target Support Files/Pods-MovieRama/Pods-MovieRama.release.xcconfig"; sourceTree = "<group>"; };
@@ -165,6 +171,8 @@
 			children = (
 				5B14A4C22B1B468000F7444B /* GetMoviesUC.swift */,
 				5BD524062B1CDA0400C945F5 /* GetMovieUC.swift */,
+				5BD5240C2B1CF8F500C945F5 /* GetSimilarMoviesUC.swift */,
+				5BD5240E2B1CF97600C945F5 /* GetMovieReviewsUC.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -200,6 +208,7 @@
 				5B14A4CC2B1B4E5800F7444B /* MoviesDTO.swift */,
 				5B14A4CE2B1B4E6F00F7444B /* MovieDTO.swift */,
 				5BD524082B1CDC9200C945F5 /* MovieFullDTO.swift */,
+				5BD524102B1CF9C000C945F5 /* MovieReviewsDTO.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -625,10 +634,12 @@
 				5B14A4CB2B1B4BEA00F7444B /* MoviesRepository.swift in Sources */,
 				FAC75F2C2B1A5AFC00BCE0BA /* AppDIContainer.swift in Sources */,
 				FA48FBCB2B19171E00C8E95D /* AppDelegate.swift in Sources */,
+				5BD5240F2B1CF97600C945F5 /* GetMovieReviewsUC.swift in Sources */,
 				5B14A4CD2B1B4E5800F7444B /* MoviesDTO.swift in Sources */,
 				5BD524052B1CD5B200C945F5 /* RatingView.swift in Sources */,
 				FAC75F402B1A6D0A00BCE0BA /* MoviesCoordinator.swift in Sources */,
 				FAC75F322B1A622500BCE0BA /* Environment.swift in Sources */,
+				5BD524112B1CF9C000C945F5 /* MovieReviewsDTO.swift in Sources */,
 				FAC75F2E2B1A5B5D00BCE0BA /* RestClient.swift in Sources */,
 				FAC75F372B1A6A3A00BCE0BA /* AppCoordinator.swift in Sources */,
 				5BD524092B1CDC9200C945F5 /* MovieFullDTO.swift in Sources */,
@@ -640,6 +651,7 @@
 				5BD5240B2B1CDF6000C945F5 /* MovieFull.swift in Sources */,
 				FAC75F452B1A709400BCE0BA /* Movie.swift in Sources */,
 				5B14A4C32B1B468000F7444B /* GetMoviesUC.swift in Sources */,
+				5BD5240D2B1CF8F500C945F5 /* GetSimilarMoviesUC.swift in Sources */,
 				FAC75F422B1A6E7300BCE0BA /* MoviesViewModel.swift in Sources */,
 				5B14A4C62B1B471600F7444B /* IMoviesRepository.swift in Sources */,
 				5B14A4BF2B1B39AE00F7444B /* MoviesViewController.swift in Sources */,

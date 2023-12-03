@@ -1,18 +1,18 @@
 //
-//  GetMovieUC.swift
+//  GetSimilarMoviesUC.swift
 //  MovieRama
 //
 //  Created by Alex Moumoulides on 03/12/23.
 //
 
-import Combine
 import Foundation
+import Combine
 
-protocol IGetMovieUC {
-    func execute(id: Int) -> AnyPublisher<MovieFull, Error>
+protocol IGetSimilarMoviesUC {
+    func execute(id: Int) -> AnyPublisher<[Movie], Error>
 }
 
-final class GetMovieUC: IGetMovieUC {
+final class GetSimilarMoviesUC: IGetSimilarMoviesUC {
     private let repo: IMoviesRepository
     private var cancelables = [AnyCancellable]()
     
@@ -21,7 +21,7 @@ final class GetMovieUC: IGetMovieUC {
         self.repo = moviesRepo
     }
 
-    func execute(id: Int) -> AnyPublisher<MovieFull, Error> {
+    func execute(id: Int) -> AnyPublisher<[Movie], Error> {
 //        return Publishers.CombineLatest(
 //            repo.getMovie(id: id),
 //            repo.getSimilarMovies(id: 15125125)
@@ -37,7 +37,7 @@ final class GetMovieUC: IGetMovieUC {
 //            // You only need to store this subscription - not publisher and publisher2 individually
 //            .store(in: &cancelables)
             
-        return repo.getMovie(id: id).eraseToAnyPublisher()
+        return repo.getSimilarMovies(id: id).eraseToAnyPublisher()
         
 //        .sink(receiveCompletion: { _ in
 //

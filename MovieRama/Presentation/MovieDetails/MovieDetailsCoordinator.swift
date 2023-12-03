@@ -46,5 +46,8 @@ class MovieDetailsCoordinator: Coordinator {
     
         navigationController.pushViewController(host, animated: true)
         
+        navigationController.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController.navigationBar.shadowImage = UIImage()
+        
     }
 }
