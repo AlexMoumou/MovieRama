@@ -23,7 +23,15 @@ class AppCoordinator: Coordinator {
         self.diContainer = container
         self.window = window
         navigationController = UINavigationController()
+
+        setupGlobalAppearance()
+        
         self.window.rootViewController = navigationController
+    }
+    
+    func setupGlobalAppearance() {
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .highlighted)
     }
     
     func start() {
@@ -37,30 +45,6 @@ class AppCoordinator: Coordinator {
         let moviesCoordinator = MoviesCoordinator(navigationController: navigationController)
         childCoordinators[.Movies] = moviesCoordinator
         
-        moviesCoordinator.callback = { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .goToMovieDetailsWith(let id):
-                self.showMovieDetailsWith(id: id)
-            }
-        }
-        
         moviesCoordinator.start()
-    }
-    
-    @MainActor func showMovieDetailsWith(id: String) {
-//        let movieDetailsCoordinator = MovieDetailsCoordinator(navigationController: navigationController)
-//        childCoordinators[.MovieDetails] = movieDetailsCoordinator
-        
-//        movieDetailsCoordinator.callback = { [weak self] result in
-//            guard let self = self else { return }
-//            switch result {
-//            case .Movies:
-//                self.childCoordinators[.MovieDetails] = nil
-//                self.navigationController.popViewController(animated: true)
-//            }
-//        }
-        
-//        movieDetailsCoordinator.start()
     }
 }

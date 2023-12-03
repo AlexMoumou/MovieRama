@@ -30,6 +30,6 @@ struct MovieDTO: Decodable {
 
 extension MovieDTO {
     func mapToDomain() -> Movie {
-        Movie(id: id, title: title, posterPath: poster, backdropPath: backdrop, releaseDate: releaseDate, voteAverage: voteAverage)
+        Movie(id: id, title: title, overview: overview, posterPath: poster, backdropPath: backdrop, releaseDate: releaseDate, voteAverage: voteAverage)
     }
 }

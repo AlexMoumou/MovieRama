@@ -1,25 +1,24 @@
 //
-//  GetPopularMoviesUC.swift
+//  GetMovieUC.swift
 //  MovieRama
 //
-//  Created by Alex Moumoulides on 02/12/23.
+//  Created by Alex Moumoulides on 03/12/23.
 //
 
-import Foundation
 import Combine
 
-protocol IGetPopularMoviesUC {
-    func execute(page: Int) -> AnyPublisher<[Movie], Error>
+protocol IGetMovieUC {
+    func execute(id: Int) -> AnyPublisher<MovieFull, Error>
 }
 
-final class GetPopularMoviesUC: IGetPopularMoviesUC {
+final class GetMovieUC: IGetMovieUC {
     private let repo: IMoviesRepository
     
     init(moviesRepo: IMoviesRepository) {
         self.repo = moviesRepo
     }
 
-    func execute(page: Int) -> AnyPublisher<[Movie], Error> {
+    func execute(id: Int) -> AnyPublisher<MovieFull, Error> {
 //        return Publishers.Zip(
 //            repo.getPopularMovies(page: page),
 //            repo.getFavoriteMovieIDs()
@@ -32,7 +31,6 @@ final class GetPopularMoviesUC: IGetPopularMoviesUC {
 //                }
 //            }
         
-        return repo.getPopularMovies(page: page).eraseToAnyPublisher()
-    
+        return repo.getMovie(id: id).eraseToAnyPublisher()
     }
 }

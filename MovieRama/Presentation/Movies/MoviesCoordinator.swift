@@ -9,13 +9,14 @@ import UIKit
 import SwiftUI
 
 enum MoviesCoordinatorResult {
-    case goToMovieDetailsWith(id: String)
+    case goToMovieDetailsWith(id: Int)
 }
 
 class MoviesCoordinator: Coordinator {
     
     var childCoordinators: [AppChildCoordinator: Coordinator] = [:]
     var navigationController: UINavigationController
+    //optional, if there was a different route to go
     var callback: (@MainActor (MoviesCoordinatorResult) -> Void)?
     
     init(navigationController: UINavigationController) {
@@ -28,12 +29,28 @@ class MoviesCoordinator: Coordinator {
             guard let self = self else { return }
             switch result {
             case .goToMovieDetailsWith(let id):
-                self.callback?(.goToMovieDetailsWith(id: id))
+                self.goToMovieDetailsWith(id: id)
             }
         }
         
         let vc = MoviesViewController.create(with: vm)
         
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    func goToMovieDetailsWith(id: Int) {
+        let movieDetailsCoordinator = MovieDetailsCoordinator(navigationController: navigationController, movieId: id)
+        childCoordinators[.MovieDetails] = movieDetailsCoordinator
+        
+        movieDetailsCoordinator.callback = { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .goBack:
+                self.childCoordinators[.MovieDetails] = nil
+                self.navigationController.popViewController(animated: true)
+            }
+        }
+        
+        movieDetailsCoordinator.start()
     }
 }

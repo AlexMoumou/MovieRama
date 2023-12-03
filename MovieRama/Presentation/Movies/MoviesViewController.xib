@@ -21,15 +21,18 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cH0-0B-Mfv">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                    <color key="backgroundColor" red="0.10564366111667284" green="0.1713214894855874" blue="0.37310366286444907" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="bqz-lV-3lD"/>
+                    </connections>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="cH0-0B-Mfv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="7da-v4-HVE"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cH0-0B-Mfv" secondAttribute="bottom" id="DFj-Rf-29X"/>
+                <constraint firstAttribute="bottom" secondItem="cH0-0B-Mfv" secondAttribute="bottom" id="DFj-Rf-29X"/>
                 <constraint firstItem="cH0-0B-Mfv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ffe-VC-Rhj"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cH0-0B-Mfv" secondAttribute="trailing" id="mXG-Rn-69y"/>
             </constraints>

@@ -6,38 +6,100 @@
 //
 
 import UIKit
-//import Kingfisher
+import Kingfisher
+
+public extension UIView {
+    func showAnimation(_ completionBlock: @escaping () -> Void) {
+      isUserInteractionEnabled = false
+        UIView.animate(withDuration: 0.1,
+                       delay: 0,
+                       options: .curveLinear,
+                       animations: { [weak self] in
+                            self?.transform = CGAffineTransform.init(scaleX: 1.95, y: 1.95)
+        }) {  (done) in
+            UIView.animate(withDuration: 0.1,
+                           delay: 0,
+                           options: .curveLinear,
+                           animations: { [weak self] in
+                                self?.transform = CGAffineTransform.init(scaleX: 1, y: 1)
+            }) { [weak self] (_) in
+                self?.isUserInteractionEnabled = true
+                completionBlock()
+            }
+        }
+    }
+}
 
 class MovieViewCell: UITableViewCell, XibInstantiableCell {
     
-    @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var poster: UIImageView!
+    @IBOutlet weak var card: UIView!
     @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var release: UILabel!
+    @IBOutlet weak var releaseD: UILabel!
     @IBOutlet weak var rating: UILabel!
-    @IBOutlet weak var favoriteStatus: UIImageView!
     
+    @IBOutlet weak var favoriteB: UIButton!
+    
+    var onAction : ((Int) -> Void)? = nil
+    
+    var movie: Movie? = nil
+    
+    @IBAction func onFavoriteTap(_ sender: UIButton) {
+        sender.showAnimation {
+            if let action = self.onAction {
+                action(self.movie!.id)
+            }
+        }
+        
+        favoriteB!.imageView?.image = UIImage(named: "heart.fill")
+    }
     
     static var cellHeight: CGFloat {
-        return 100
+        return 200
     }
+    
+    override func layoutSubviews() {
+            super.layoutSubviews()
 
+        poster.contentMode = .scaleAspectFill
+        poster.backgroundColor = .clear
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+    
+//        card.backgroundColor = .init(red: 69, green: 149, blue: 205, alpha: 255)
+        
+        title.textColor = .black
+        
+        card.layer.cornerRadius = 19
+        
+        poster.layer.cornerRadius = 19
+        poster.contentMode = .scaleAspectFill
+        poster.backgroundColor = .clear
+        
     }
     
     func setup(with movie: Movie) {
-        let url = URL(string: "https://image.tmdb.org/t/p/w200/\(movie.posterPath!)")
-//        poster.kf.setImage(with: url)
+        
+        self.movie = movie
+        
+        if movie.posterPath != nil {
+            let url = URL(string: "https://image.tmdb.org/t/p/w200/\(movie.posterPath!)")
+            poster.kf.setImage(with: url)
+        }
+        
         self.title.text = movie.title
-        self.release.text = movie.releaseDate
+        self.releaseD.text = movie.releaseDate
         self.rating.text = String(format: "%.1f", movie.voteAverage ?? "-")
-        self.favoriteStatus.image = movie.isFavorite ? UIImage(named: "heart.fill") : UIImage(named: "heart")
+        self.favoriteB.setImage(movie.isFavorite ? UIImage(named: "heart.fill") : UIImage(named: "heart"), for: .normal)
+        self.favoriteB.setTitle("", for: .normal)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        print()
     }
     
 }

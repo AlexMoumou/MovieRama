@@ -9,8 +9,10 @@ import Foundation
 import Combine
 
 protocol IMoviesRepository {
-    func getPopularMovies(page: Int) -> AnyPublisher<[Movie], Error>
-    func searchMoviesBy(query: String?, page: Int) -> AnyPublisher<[Movie], Error>
+    func getMovies(query: String?, page: Int) -> AnyPublisher<[Movie], Error>
+    func getMovie(id: Int) -> AnyPublisher<MovieFull, Error>
+//    func getMovieReviews(id: Int) -> AnyPublisher<Movie, Error>
+//    func getSimilarMovies(id: Int) -> AnyPublisher<[Movie], Error>
 //    func saveToFavorites(movieID: String) -> AnyPublisher<Bool, Error>
 //    func getFavoriteMovieIDs() -> AnyPublisher<[Int], Error>
 }

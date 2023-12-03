@@ -23,8 +23,12 @@ final class AppDIContainer {
     
     // MARK: - Use Cases
     
-    func makeGetPopularMoviesUseCase() -> IGetPopularMoviesUC {
-        return GetPopularMoviesUC(moviesRepo: moviesRepo)
+    func makeGetMoviesUseCase() -> IGetMoviesUC {
+        return GetMoviesUC(moviesRepo: moviesRepo)
+    }
+    
+    func makeGetMovieUseCase() -> IGetMovieUC {
+        return GetMovieUC(moviesRepo: moviesRepo)
     }
     
     // MARK: - Repositories
@@ -32,7 +36,16 @@ final class AppDIContainer {
     // MARK: - ViewModels
     
     func makeMoviesViewModel() -> any IMoviesViewModel {
-        return MoviesViewModel(getPopularMoviesUC: makeGetPopularMoviesUseCase())
+        return MoviesViewModel(getMoviesUC: makeGetMoviesUseCase())
+    }
+    
+    func makeMovieDetailsViewModel(movieId: Int) -> any IMovieDetailsViewModel {
+        return MovieDetailsViewModel(getMovieUC: makeGetMovieUseCase(), movieId: movieId)
+    }
+    
+    // MARK: - SwiftUIViews
+    func makeMovieDetailsView(vm: any IMovieDetailsViewModel) -> MovieDetailsView {
+        return MovieDetailsView(vm: vm as! MovieDetailsViewModel)
     }
     
 }
