@@ -1,16 +1,16 @@
 //
-//  GetMoviesUCTests.swift
+//  GetSimilarMoviesUCTests.swift
 //  MovieRamaTests
 //
-//  Created by Alex Moumoulides on 04/12/23.
+//  Created by Alex Moumoulidis on 4/12/23.
 //
 
 import XCTest
 
-final class GetMoviesUCTests: XCTestCase {
+final class GetSimilarMoviesUCTests: XCTestCase {
 
     var moviesRepositoryMock: MoviesRepositoryMock!
-    var sut: IGetMoviesUC?
+    var sut: IGetSimilarMoviesUC?
     
     override func setUp() {
         super.setUp()
@@ -43,12 +43,12 @@ final class GetMoviesUCTests: XCTestCase {
         ]
         
         moviesRepositoryMock.favouriteMovieidsToReturn = ids
-        moviesRepositoryMock.moviesToReturn = movies
+        moviesRepositoryMock.similarMoviesToReturn = movies
         
-        sut = GetMoviesUC(moviesRepo: moviesRepositoryMock)
+        sut = GetSimilarMoviesUC(moviesRepo: moviesRepositoryMock)
         
         
-        waitForValue(of: sut!.execute(query: "test", page: 1), value: excpectedMovies)
+        waitForValue(of: sut!.execute(id: 1), value: excpectedMovies)
     }
 
 }

@@ -17,7 +17,7 @@ struct MovieReviewsDTO: Decodable {
     }
 }
 
-struct ReviewDTO: Decodable, Identifiable {
+struct ReviewDTO: Decodable, Identifiable, Equatable {
     let id: String
     let content: String
     let author: String
@@ -26,5 +26,22 @@ struct ReviewDTO: Decodable, Identifiable {
         case id
         case content
         case author
+    }
+}
+
+extension ReviewDTO {
+    static func example() -> ReviewDTO {
+        return ReviewDTO(id: "123", content: "In my top 5 of all time favourite movies. Great story line and a movie you can watch over and over again.", author: "Brett Pascoe")
+    }
+    
+    func copyWith(
+        id: String? = nil,
+        content: String? = nil,
+        author: String? = nil
+    ) -> ReviewDTO {
+        return ReviewDTO(id: id ?? self.id,
+                     content: content ?? self.content,
+                     author: author ?? self.author
+        )
     }
 }

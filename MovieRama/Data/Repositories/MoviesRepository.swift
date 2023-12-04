@@ -52,7 +52,7 @@ final class MoviesRepository: IMoviesRepository {
         
         let favorites = localStorage.getFavoriteMovieIDs()
         
-        //Fake outcome
+        //Fake outcome as stated in the assignment
         let success = Bool.random()
         
         if favorites.contains(movieID) {

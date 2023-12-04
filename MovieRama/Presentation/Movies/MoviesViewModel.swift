@@ -11,7 +11,7 @@ import Combine
 protocol IMoviesViewModel: ObservableObject {
     func send(action: MoviesViewModelAction)
     
-    //Sadly swift does not support property wrapper definition in a protocol
+    //Sadly swift does not support property wrapper definition in a protocol yet?
     var moviesList: Published<[Movie]>.Publisher { get }
     var moviesListPublish: [Movie] { get }
     
@@ -112,10 +112,6 @@ class MoviesViewModel: IMoviesViewModel {
             },
             receiveValue: { [weak self] success in
                 if success {
-                    let movie = self?.moviesListPublish.first { movie in
-                        movie.id == id
-                    }
-    
                     self?.moviesListPublish = (self?.moviesListPublish.map({ movie in
                         if movie.id == id {
                             return movie.copyWith(isFavorite: !movie.isFavorite)
