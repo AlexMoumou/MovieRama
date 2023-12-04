@@ -39,6 +39,7 @@
 		FA48FBE22B19171F00C8E95D /* MovieRamaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48FBE12B19171F00C8E95D /* MovieRamaTests.swift */; };
 		FA48FBEC2B19171F00C8E95D /* MovieRamaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48FBEB2B19171F00C8E95D /* MovieRamaUITests.swift */; };
 		FA48FBEE2B19171F00C8E95D /* MovieRamaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA48FBED2B19171F00C8E95D /* MovieRamaUITestsLaunchTests.swift */; };
+		FABE12582B1E41440022A645 /* XCTestCase+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE12572B1E41440022A645 /* XCTestCase+Extensions.swift */; };
 		FAC75F2C2B1A5AFC00BCE0BA /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC75F2B2B1A5AFC00BCE0BA /* AppDIContainer.swift */; };
 		FAC75F2E2B1A5B5D00BCE0BA /* RestClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC75F2D2B1A5B5D00BCE0BA /* RestClient.swift */; };
 		FAC75F302B1A5B9100BCE0BA /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC75F2F2B1A5B9100BCE0BA /* Endpoint.swift */; };
@@ -117,6 +118,7 @@
 		FA48FBE72B19171F00C8E95D /* MovieRamaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieRamaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA48FBEB2B19171F00C8E95D /* MovieRamaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRamaUITests.swift; sourceTree = "<group>"; };
 		FA48FBED2B19171F00C8E95D /* MovieRamaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRamaUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		FABE12572B1E41440022A645 /* XCTestCase+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Extensions.swift"; sourceTree = "<group>"; };
 		FAC75F2B2B1A5AFC00BCE0BA /* AppDIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		FAC75F2D2B1A5B5D00BCE0BA /* RestClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestClient.swift; sourceTree = "<group>"; };
 		FAC75F2F2B1A5B9100BCE0BA /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 		FA48FBE02B19171F00C8E95D /* MovieRamaTests */ = {
 			isa = PBXGroup;
 			children = (
+				FABE12562B1E41290022A645 /* Utils */,
 				FAC75F382B1A6B8D00BCE0BA /* Infrastructure */,
 				FA48FBE12B19171F00C8E95D /* MovieRamaTests.swift */,
 			);
@@ -302,6 +305,14 @@
 				FA48FBED2B19171F00C8E95D /* MovieRamaUITestsLaunchTests.swift */,
 			);
 			path = MovieRamaUITests;
+			sourceTree = "<group>";
+		};
+		FABE12562B1E41290022A645 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				FABE12572B1E41440022A645 /* XCTestCase+Extensions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		FAC75F252B1A586600BCE0BA /* Application */ = {
@@ -675,6 +686,7 @@
 				FAC75F3A2B1A6BC800BCE0BA /* RestClientTests.swift in Sources */,
 				FAC75F3B2B1A6BEF00BCE0BA /* Endpoint.swift in Sources */,
 				FA48FBE22B19171F00C8E95D /* MovieRamaTests.swift in Sources */,
+				FABE12582B1E41440022A645 /* XCTestCase+Extensions.swift in Sources */,
 				FAC75F3D2B1A6C3F00BCE0BA /* Environment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

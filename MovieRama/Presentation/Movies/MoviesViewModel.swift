@@ -116,7 +116,6 @@ class MoviesViewModel: IMoviesViewModel {
                         movie.id == id
                     }
     
-                    let currentStatus = movie!.isFavorite
                     self?.moviesListPublish = (self?.moviesListPublish.map({ movie in
                         if movie.id == id {
                             return movie.copyWith(isFavorite: !movie.isFavorite)
