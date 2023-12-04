@@ -34,6 +34,7 @@ enum MoviesViewModelAction {
 class MoviesViewModel: IMoviesViewModel {
     
     private let getMoviesUC: IGetMoviesUC
+    private let toggleFavoriteStatusUC: IToggleMovieAsFavoriteUC
     
     @Published var moviesListPublish: [Movie] = []
     var moviesList: Published<[Movie]>.Publisher { $moviesListPublish }
@@ -47,8 +48,9 @@ class MoviesViewModel: IMoviesViewModel {
     private var cancelables = [AnyCancellable]()
     var callback: (@MainActor (MoviesViewModelResult) -> Void)?
     
-    init(getMoviesUC: IGetMoviesUC) {
+    init(getMoviesUC: IGetMoviesUC, toggleFavoriteStatusUC: IToggleMovieAsFavoriteUC) {
         self.getMoviesUC = getMoviesUC
+        self.toggleFavoriteStatusUC = toggleFavoriteStatusUC
     }
     
     func send(action: MoviesViewModelAction) {
@@ -103,6 +105,29 @@ class MoviesViewModel: IMoviesViewModel {
         if isLoading { return }
         isLoading = true
         
+        toggleFavoriteStatusUC.execute(id: id)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in
+                self.isLoading = false
+            },
+            receiveValue: { [weak self] success in
+                if success {
+                    let movie = self?.moviesListPublish.first { movie in
+                        movie.id == id
+                    }
+    
+                    let currentStatus = movie!.isFavorite
+                    self?.moviesListPublish = (self?.moviesListPublish.map({ movie in
+                        if movie.id == id {
+                            return movie.copyWith(isFavorite: !movie.isFavorite)
+                        }
+                        return movie
+                    }))!
+                }
+                
+                self?.isLoading = false
+            })
+            .store(in: &cancelables)
         
     }
     

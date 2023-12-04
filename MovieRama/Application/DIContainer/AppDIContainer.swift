@@ -82,7 +82,7 @@ final class AppDIContainer {
     // MARK: - ViewModels
     
     func makeMoviesViewModel() -> any IMoviesViewModel {
-        return MoviesViewModel(getMoviesUC: makeGetMoviesUseCase())
+        return MoviesViewModel(getMoviesUC: makeGetMoviesUseCase(), toggleFavoriteStatusUC: makeToggleMovieAsFavoriteUseCase())
     }
     
     func makeMovieDetailsViewModel(movieId: Int) -> any IMovieDetailsViewModel {

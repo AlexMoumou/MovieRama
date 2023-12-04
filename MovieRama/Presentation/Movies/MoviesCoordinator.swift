@@ -35,7 +35,8 @@ class MoviesCoordinator: Coordinator {
         
         let vc = MoviesViewController.create(with: vm)
         
-        navigationController.pushViewController(vc, animated: true)
+        navigationController.navigationBar.isHidden = false
+        navigationController.pushViewController(vc, animated: false)
     }
     
     func goToMovieDetailsWith(id: Int) {

@@ -30,6 +30,8 @@ class AppCoordinator: Coordinator {
     }
     
     func setupGlobalAppearance() {
+        navigationController.navigationBar.isHidden = true
+
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .normal)
         UIBarButtonItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.clear], for: .highlighted)
     }

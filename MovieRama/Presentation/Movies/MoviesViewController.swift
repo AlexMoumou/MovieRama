@@ -8,6 +8,23 @@
 import UIKit
 import Combine
 
+extension UIViewController {
+
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard(_ sender: UITapGestureRecognizer) {
+        view.endEditing(true)
+
+        if let nav = self.navigationController {
+            nav.view.endEditing(true)
+        }
+    }
+ }
+
 class MoviesViewController: UIViewController, XibInstantiable {
 
     private(set) var vm: (any IMoviesViewModel)?
@@ -19,8 +36,9 @@ class MoviesViewController: UIViewController, XibInstantiable {
         let searchController = UISearchController(searchResultsController: nil)
         
         searchController.searchBar.tintColor = .label
+        searchController.automaticallyShowsCancelButton = true
         searchController.obscuresBackgroundDuringPresentation = false
-        
+        definesPresentationContext = false
         return searchController
     }()
     
@@ -40,10 +58,13 @@ class MoviesViewController: UIViewController, XibInstantiable {
         applySearchDebounce()
         
         vm?.send(action: .load(query: nil))
+        
+        hideKeyboardWhenTappedAround()
     }
-
+    
     private func setupUI() {
         navigationItem.title = "MOVIERAMA!!!"
+        navigationItem.titleView?.tintColor = .systemBackground
         
         moviesTableView.register(UINib(nibName: "MovieViewCell", bundle: .main), forCellReuseIdentifier: "MovieViewCell")
         moviesTableView.delegate = self
@@ -51,8 +72,12 @@ class MoviesViewController: UIViewController, XibInstantiable {
         moviesTableView.separatorColor = .clear
         
         searchController.searchBar.delegate = self
+        
         navigationItem.searchController = self.searchController
-        searchController.isActive = true
+        definesPresentationContext = true
+        
+        searchController.isActive = false
+        self.navigationItem.hidesSearchBarWhenScrolling = false
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(onRefresh), for: .valueChanged)
@@ -70,15 +95,13 @@ class MoviesViewController: UIViewController, XibInstantiable {
             
             guard let strongSelf = self else { return }
             
-            strongSelf.moviesTableView.refreshControl?.endRefreshing()
-            
             UIView.transition(with: strongSelf.moviesTableView,
             duration: 0.4,
             options: .transitionCrossDissolve,
             animations: {
-                
                 strongSelf.movies = list
                 strongSelf.moviesTableView.reloadData()
+                strongSelf.moviesTableView.refreshControl?.endRefreshing()
             })
             
             
@@ -90,7 +113,7 @@ class MoviesViewController: UIViewController, XibInstantiable {
       publisher.map {
             ($0.object as! UISearchTextField).text!
       }
-      .debounce(for: .milliseconds(500), scheduler: RunLoop.main)
+      .debounce(for: .milliseconds(300), scheduler: RunLoop.main)
       .sink(receiveValue: { (value) in
           if value.convertedToSlug() != nil || value == "" {
               self.vm?.send(action: .load(query: value.convertedToSlug()))

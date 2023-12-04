@@ -10,7 +10,7 @@ import Kingfisher
 
 public extension UIView {
     func showAnimation(_ completionBlock: @escaping () -> Void) {
-      isUserInteractionEnabled = true
+      isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.1,
                        delay: 0,
                        options: .curveLinear,
@@ -23,7 +23,7 @@ public extension UIView {
                            animations: { [weak self] in
                                 self?.transform = CGAffineTransform.init(scaleX: 1, y: 1)
             }) { [weak self] (_) in
-//                self?.isUserInteractionEnabled = true
+                self?.isUserInteractionEnabled = true
                 completionBlock()
             }
         }
@@ -47,7 +47,7 @@ class MovieViewCell: UITableViewCell, XibInstantiableCell {
     @IBAction func onFavoriteTap(_ sender: UIButton) {
         sender.showAnimation {
             if let action = self.onAction {
-                action(self.movie!.id)
+            action(self.movie!.id)
             }
         }
     }
@@ -65,10 +65,8 @@ class MovieViewCell: UITableViewCell, XibInstantiableCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-    
-//        card.backgroundColor = .init(red: 69, green: 149, blue: 205, alpha: 255)
         
-        title.textColor = .black
+        title.textColor = .white
         
         card.layer.cornerRadius = 19
         
@@ -90,6 +88,7 @@ class MovieViewCell: UITableViewCell, XibInstantiableCell {
         self.title.text = movie.title
         self.releaseD.text = movie.releaseDate
         self.rating.text = String(format: "%.1f", movie.voteAverage ?? "-")
+        self.rating.tintColor = .red
         
         favoriteB.setImage(UIImage(systemName: movie.isFavorite ? "heart.fill": "heart")!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
         favoriteB.tintColor = UIColor.red
@@ -98,6 +97,7 @@ class MovieViewCell: UITableViewCell, XibInstantiableCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
     }
     
 }
