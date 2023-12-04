@@ -18,6 +18,13 @@ extension Double {
     }
 }
 
+struct ScaleButtonStyle: ButtonStyle {
+    func makeBody(configuration: Self.Configuration) -> some View {
+        configuration.label
+            .scaleEffect(configuration.isPressed ? 2 : 1)
+    }
+}
+
 struct MovieDetailsView: View {
     
     @ObservedObject var vm: MovieDetailsViewModel
@@ -46,6 +53,14 @@ struct MovieDetailsView: View {
                                                 .foregroundColor(.primary)
                                                 .multilineTextAlignment(.leading)
                                         }
+                                        
+                                        Spacer()
+                                        Button {
+                                            vm.send(action: .toggleFavoriteStatus)
+                                        } label: {
+                                            Image(systemName: vm.movieData!.isFavorite ? "heart.fill": "heart").foregroundColor(.red)
+                                        }.buttonStyle(ScaleButtonStyle())
+                                        
                                     }
                                     Text(vm.movieData!.genreNames.joined(separator: ", "))
                                         .font(.caption)
@@ -147,9 +162,6 @@ struct MovieDetailsView: View {
                                 
                                 Spacer()
                             }
-                            
-                            
-                            
                         }
                         
                         VStack {
@@ -165,7 +177,6 @@ struct MovieDetailsView: View {
                                     .renderingMode(.original)
                                     .aspectRatio(contentMode: .fill)
                                     .frame(width: geo.size.width, height: geo.size.height * posterHeightRatio)
-                                //                                .clipped()
                                     .cornerRadius(20)
                                     .shadow(radius: 10)
                                 

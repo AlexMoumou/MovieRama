@@ -7,6 +7,40 @@
 
 import Foundation
 
+extension UserDefaults: ILocalMovieStorage {
+    
+    static let storeMovieIdsKey = "MovieRama_Favorite_movies_storage"
+    
+    func saveToFavorites(movieID: Int) {
+        
+        var storedMovieIds = getFavoriteMovieIDs()
+        
+        if storedMovieIds.contains(movieID) { return }
+        
+        storedMovieIds.append(movieID)
+        
+        setValue(storedMovieIds, forKey: UserDefaults.storeMovieIdsKey)
+    }
+    
+    func deleteFromFavorites(movieID: Int) {
+        
+        var storedMovieIds = getFavoriteMovieIDs()
+        
+        if storedMovieIds.contains(movieID) {
+            storedMovieIds.removeAll { $0 == movieID }
+        } else {
+            return
+        }
+        
+        setValue(storedMovieIds, forKey: UserDefaults.storeMovieIdsKey)
+    }
+    
+    func getFavoriteMovieIDs() -> [Int] {
+        let storedMovieIds: [Int] = value(forKey: UserDefaults.storeMovieIdsKey) as? [Int] ?? []
+        return storedMovieIds
+    }
+}
+
 // Simple Dependency Injection, this can obviously be done better
 // with a package like Resolver or Swinject
 final class AppDIContainer {
@@ -19,7 +53,7 @@ final class AppDIContainer {
     // APIProvider protocol for AFNetwork, Alamofire or any other network package and apply it here.
     lazy var client: RestClient = RestClient(session: URLSession(configuration: URLSessionConfiguration.default))
     
-    lazy var moviesRepo: IMoviesRepository = MoviesRepository(restClient: client)
+    lazy var moviesRepo: IMoviesRepository = MoviesRepository(restClient: client, storage: UserDefaults.standard)
     
     // MARK: - Use Cases
     
@@ -39,6 +73,10 @@ final class AppDIContainer {
         return GetMovieReviewsUC(moviesRepo: moviesRepo)
     }
     
+    func makeToggleMovieAsFavoriteUseCase() -> IToggleMovieAsFavoriteUC {
+        return ToggleMovieAsFavoriteUC(moviesRepo: moviesRepo)
+    }
+    
     // MARK: - Repositories
     
     // MARK: - ViewModels
@@ -51,6 +89,7 @@ final class AppDIContainer {
         return MovieDetailsViewModel(getMovieUC: makeGetMovieUseCase(),
                                      getMovieReviewsUC: makeGetMovieReviewsUseCase(),
                                      getSimilarMoviesUC: makeGetSimilarMoviesUseCase(),
+                                     toggleMovieAsFavoriteUC: makeToggleMovieAsFavoriteUseCase(),
                                      movieId: movieId)
     }
     

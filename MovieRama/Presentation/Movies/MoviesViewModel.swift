@@ -118,7 +118,7 @@ class MoviesViewModel: IMoviesViewModel {
             },
             receiveValue: { [weak self] response in
                 
-                self?.moviesListPublish += response
+                self?.moviesListPublish = response
                 
                 if !response.isEmpty {
                     self?.page += 1

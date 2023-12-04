@@ -22,32 +22,18 @@ final class GetMovieUC: IGetMovieUC {
     }
 
     func execute(id: Int) -> AnyPublisher<MovieFull, Error> {
-//        return Publishers.CombineLatest(
-//            repo.getMovie(id: id),
-//            repo.getSimilarMovies(id: 15125125)
-//        ).receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//                // Handle error / completion
-//                // If either stream produces an error, the error will be forwarded in here
-//            }, receiveValue: { movie, similarMovies in
-//                movie.copyWith(similarMovies: similarMovies)
-//
-//                Just(movie).eraseToAnyPublisher()
-//            })
-//            // You only need to store this subscription - not publisher and publisher2 individually
-//            .store(in: &cancelables)
+        return Publishers.Zip(
+            repo.getMovie(id: id),
+            repo.getFavoriteMovieIDs().setFailureType(to: Error.self)
+        )
+        .map { movie, movieIds in
             
-        return repo.getMovie(id: id).eraseToAnyPublisher()
-        
-//        .sink(receiveCompletion: { _ in
-//
-//        }, receiveValue: { (movie, similarMovies) in
-//            print(movie)
-//            print(similarMovies)
-//        })
-//        .map { movie, similarMovies in
-//            movie.copyWith(similarMovies: similarMovies)
-//        }
-//        .eraseToAnyPublisher()
+            if movieIds.contains(movie.id) {
+                let newMovie = movie.copyWith(isFavorite: true)
+                return newMovie
+            }
+            return movie
+            
+        }.eraseToAnyPublisher()
     }
 }

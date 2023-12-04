@@ -21,6 +21,7 @@ enum MovieDetailsViewModelResult {
 enum MovieDetailsViewModelAction {
     case load
     case goBack
+    case toggleFavoriteStatus
 }
 
 class MovieDetailsViewModel: IMovieDetailsViewModel {
@@ -36,16 +37,18 @@ class MovieDetailsViewModel: IMovieDetailsViewModel {
     private let getMovieUC: IGetMovieUC
     private let getMovieReviewsUC: IGetMovieReviewsUC
     private let getSimilarMoviesUC: IGetSimilarMoviesUC
+    private let toggleMovieAsFavoriteUC: IToggleMovieAsFavoriteUC
     private let movieId: Int
-    
     
     init(getMovieUC: IGetMovieUC,
          getMovieReviewsUC: IGetMovieReviewsUC,
          getSimilarMoviesUC: IGetSimilarMoviesUC,
+         toggleMovieAsFavoriteUC: IToggleMovieAsFavoriteUC,
          movieId: Int) {
         self.getMovieUC = getMovieUC
         self.getMovieReviewsUC = getMovieReviewsUC
         self.getSimilarMoviesUC = getSimilarMoviesUC
+        self.toggleMovieAsFavoriteUC = toggleMovieAsFavoriteUC
         self.movieId = movieId
         
         loadFullMovie()
@@ -53,11 +56,28 @@ class MovieDetailsViewModel: IMovieDetailsViewModel {
     
     func send(action: MovieDetailsViewModelAction) {
         switch action {
-        case.load:
+        case .load:
             loadFullMovie()
+        case .toggleFavoriteStatus:
+            toggleFavoriteStatus()
         case .goBack:
             Task { await callback?(.goBack) }
         }
+    }
+    
+    func toggleFavoriteStatus() {
+        toggleMovieAsFavoriteUC.execute(id: movieId)
+            .receive(on: DispatchQueue.main)
+            .sink(receiveCompletion: { _ in
+            },
+            receiveValue: { [weak self] success in
+                if success {
+                    
+                    let currentStatus = self?.movieData?.isFavorite
+                    self?.movieData = self?.movieData?.copyWith(isFavorite: !currentStatus!)
+                }
+            })
+            .store(in: &cancelables)
     }
     
     func loadReviews() {

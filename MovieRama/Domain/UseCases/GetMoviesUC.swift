@@ -20,18 +20,22 @@ final class GetMoviesUC: IGetMoviesUC {
     }
 
     func execute(query: String?, page: Int) -> AnyPublisher<[Movie], Error> {
-//        return Publishers.Zip(
-//            repo.getPopularMovies(page: page),
-//            repo.getFavoriteMovieIDs()
-//        ).map { movies, favorites in
-//            movies.map { movie in
-//                if favorites.contains(movie.id) {
-//                    return movie.copyWith(isFavorite: true)
-//                } else {
-//                    return movie
-//                }
-//            }
-        
-        return repo.getMovies(query: query, page: page).eraseToAnyPublisher()
+        return Publishers.Zip(
+            repo.getMovies(query: query, page: page),
+            repo.getFavoriteMovieIDs().setFailureType(to: Error.self)
+        )
+        .map { movies, movieIds in
+            
+            var mutatedMovies = movies
+            
+            for (i, movie) in movies.enumerated() {
+                if movieIds.contains(movie.id) {
+                    mutatedMovies[i] = movie.copyWith(isFavorite: true)
+                }
+            }
+            
+            return mutatedMovies
+            
+        }.eraseToAnyPublisher()
     }
 }

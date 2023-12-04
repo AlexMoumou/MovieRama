@@ -10,7 +10,7 @@ import Kingfisher
 
 public extension UIView {
     func showAnimation(_ completionBlock: @escaping () -> Void) {
-      isUserInteractionEnabled = false
+      isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.1,
                        delay: 0,
                        options: .curveLinear,
@@ -23,7 +23,7 @@ public extension UIView {
                            animations: { [weak self] in
                                 self?.transform = CGAffineTransform.init(scaleX: 1, y: 1)
             }) { [weak self] (_) in
-                self?.isUserInteractionEnabled = true
+//                self?.isUserInteractionEnabled = true
                 completionBlock()
             }
         }
@@ -50,8 +50,6 @@ class MovieViewCell: UITableViewCell, XibInstantiableCell {
                 action(self.movie!.id)
             }
         }
-        
-        favoriteB!.imageView?.image = UIImage(named: "heart.fill")
     }
     
     static var cellHeight: CGFloat {
@@ -92,14 +90,14 @@ class MovieViewCell: UITableViewCell, XibInstantiableCell {
         self.title.text = movie.title
         self.releaseD.text = movie.releaseDate
         self.rating.text = String(format: "%.1f", movie.voteAverage ?? "-")
-        self.favoriteB.setImage(movie.isFavorite ? UIImage(named: "heart.fill") : UIImage(named: "heart"), for: .normal)
-        self.favoriteB.setTitle("", for: .normal)
+        
+        favoriteB.setImage(UIImage(systemName: movie.isFavorite ? "heart.fill": "heart")!.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
+        favoriteB.tintColor = UIColor.red
+        favoriteB.setTitle("", for: .normal)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
-        print()
     }
     
 }

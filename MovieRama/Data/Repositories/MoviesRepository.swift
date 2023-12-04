@@ -10,9 +10,11 @@ import Combine
 final class MoviesRepository: IMoviesRepository {
     
     private let restClient: IRestClient
+    private let localStorage: ILocalMovieStorage
         
-    init(restClient: IRestClient) {
+    init(restClient: IRestClient, storage: ILocalMovieStorage) {
         self.restClient = restClient
+        self.localStorage = storage
     }
     
     
@@ -46,13 +48,34 @@ final class MoviesRepository: IMoviesRepository {
         }.eraseToAnyPublisher()
     }
     
-//    func saveToFavorites(movieID: String) -> AnyPublisher<Bool, Error> {
-//        
-//    }
-//    
-//    func getFavoriteMovieIDs() -> AnyPublisher<[Int], Error> {
-//        
-//    }
+    func toggleFavoriteStatus(movieID: Int) -> AnyPublisher<Bool, Never> {
+        
+        let favorites = localStorage.getFavoriteMovieIDs()
+        
+        //Fake outcome
+        let success = Bool.random()
+        
+        if favorites.contains(movieID) {
+            if success {
+                localStorage.deleteFromFavorites(movieID: movieID)
+                return [success].publisher.eraseToAnyPublisher()
+            }
+        } else {
+            if success {
+                localStorage.saveToFavorites(movieID: movieID)
+                return [success].publisher.eraseToAnyPublisher()
+            }
+        }
+        
+        return Just(false).eraseToAnyPublisher()
+    }
     
-    
+    func getFavoriteMovieIDs() -> AnyPublisher<[Int], Never> {
+        let ids = localStorage.getFavoriteMovieIDs()
+        
+        if ids.isEmpty {
+            return Just([]).eraseToAnyPublisher()
+        }
+        return Just(ids).eraseToAnyPublisher()
+    }
 }

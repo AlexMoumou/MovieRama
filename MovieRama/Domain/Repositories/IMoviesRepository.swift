@@ -13,6 +13,6 @@ protocol IMoviesRepository {
     func getMovie(id: Int) -> AnyPublisher<MovieFull, Error>
     func getMovieReviews(id: Int) -> AnyPublisher<[ReviewDTO], Error>
     func getSimilarMovies(id: Int) -> AnyPublisher<[Movie], Error>
-//    func saveToFavorites(movieID: String) -> AnyPublisher<Bool, Error>
-//    func getFavoriteMovieIDs() -> AnyPublisher<[Int], Error>
+    func toggleFavoriteStatus(movieID: Int) -> AnyPublisher<Bool, Never>
+    func getFavoriteMovieIDs() -> AnyPublisher<[Int], Never>
 }

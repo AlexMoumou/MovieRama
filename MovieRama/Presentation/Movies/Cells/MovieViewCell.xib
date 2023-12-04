@@ -47,7 +47,7 @@
                                     <constraint firstAttribute="width" constant="24" id="zqS-SQ-rep"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
                                 <connections>
                                     <action selector="onFavoriteTap:" destination="-1" eventType="touchUpInside" id="Uq6-UL-uxI"/>
                                 </connections>
@@ -91,7 +91,4 @@
             <point key="canvasLocation" x="195.41984732824426" y="-20.422535211267608"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="heart" catalog="system" width="128" height="107"/>
-    </resources>
 </document>

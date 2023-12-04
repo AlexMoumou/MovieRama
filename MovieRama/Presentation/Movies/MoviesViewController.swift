@@ -121,7 +121,6 @@ extension MoviesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = moviesTableView.dequeueReusableCell(withIdentifier: "MovieViewCell") as! MovieViewCell
 
-        
         cell.setup(with: movies[indexPath.row])
         cell.onAction = { id in
             self.vm?.send(action: .favoriteMovieWith(id: id))
