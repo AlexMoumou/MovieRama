@@ -20,9 +20,12 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="purpleBackground" translatesAutoresizingMaskIntoConstraints="NO" id="ERB-Ua-iVE">
+                    <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" delaysContentTouches="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="cH0-0B-Mfv">
                     <rect key="frame" x="0.0" y="59" width="393" height="793"/>
-                    <color key="backgroundColor" red="0.10564366111667284" green="0.1713214894855874" blue="0.37310366286444907" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="bqz-lV-3lD"/>
                     </connections>
@@ -33,13 +36,18 @@
             <constraints>
                 <constraint firstItem="cH0-0B-Mfv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="7da-v4-HVE"/>
                 <constraint firstAttribute="bottom" secondItem="cH0-0B-Mfv" secondAttribute="bottom" id="DFj-Rf-29X"/>
+                <constraint firstItem="ERB-Ua-iVE" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="MSf-N6-lLt"/>
                 <constraint firstItem="cH0-0B-Mfv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ffe-VC-Rhj"/>
+                <constraint firstItem="ERB-Ua-iVE" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="hAE-91-oKh"/>
+                <constraint firstAttribute="bottom" secondItem="ERB-Ua-iVE" secondAttribute="bottom" id="i9x-lO-NDz"/>
+                <constraint firstItem="ERB-Ua-iVE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="kc1-ug-wJ0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cH0-0B-Mfv" secondAttribute="trailing" id="mXG-Rn-69y"/>
             </constraints>
             <point key="canvasLocation" x="110.68702290076335" y="-12.67605633802817"/>
         </view>
     </objects>
     <resources>
+        <image name="purpleBackground" width="162" height="333.66665649414062"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
