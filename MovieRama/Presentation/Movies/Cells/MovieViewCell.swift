@@ -86,6 +86,7 @@ class MovieViewCell: UITableViewCell, XibInstantiableCell {
         }
         
         self.title.text = movie.title
+        self.title.numberOfLines = 5
         self.releaseD.text = movie.releaseDate
         self.rating.text = String(format: "%.1f", movie.voteAverage ?? "-")
         self.rating.tintColor = .red

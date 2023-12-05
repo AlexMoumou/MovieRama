@@ -66,7 +66,7 @@ class MoviesViewController: UIViewController, XibInstantiable {
         navigationItem.title = "MOVIERAMA!!!"
         navigationItem.titleView?.tintColor = .systemBackground
         
-        moviesTableView.register(UINib(nibName: "MovieViewCell", bundle: .main), forCellReuseIdentifier: "MovieViewCell")
+        moviesTableView.register(MovieViewCell.nib, forCellReuseIdentifier: MovieViewCell.reuseIdentifier)
         moviesTableView.delegate = self
         moviesTableView.dataSource = self
         moviesTableView.separatorColor = .clear
