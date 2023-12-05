@@ -16,4 +16,4 @@ SwiftUI is used for the MovieDetailsView and UIKit with xibs for the main Movies
 
 Combine is used for the communication between the rest of the layers.
 
-Im showcasing atleast a bit of eery testing method as well.
+Im showcasing atleast a bit of every testing method as well.
